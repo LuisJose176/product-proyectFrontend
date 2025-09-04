@@ -33,7 +33,7 @@ export class ProductPageComponent  {
   }
 
   onPageSizeChange(event: any): void {
-    this.pageSize = event.target.value;
+    this.pageSize = Number(event.target.value);
     this.pageNumber = 1;
     this.getProducts(); 
   }

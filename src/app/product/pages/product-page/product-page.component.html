@@ -34,11 +34,16 @@
   <div class="paginator">
     <button (click)="prevPage()" [disabled]="pageNumber === 1">Anterior</button>
     <span>Página {{ pageNumber }} de {{ totalPages }}</span>
-    <input id="pageSize"
-           type="number"
-           [value]="pageSize"
-           (input)="onPageSizeChange($event)"
-           min="1" />
+
+    <select id="pageSize" [value]="pageSize" (change)="onPageSizeChange($event)">
+      <option [value]="1">1</option>
+      <option [value]="5">5</option>
+      <option [value]="10">10</option>
+      <option [value]="15">15</option>
+      <option [value]="20">20</option>
+      <option [value]="25">25</option>
+    </select>
+
     <button (click)="nextPage()" [disabled]="pageNumber === totalPages">Siguiente</button>
   </div>
 </div>
