@@ -1,0 +1,34 @@
+<div class="form-container">
+  <h2 *ngIf="!isEditMode">Crear Producto</h2>
+  <h2 *ngIf="isEditMode">Editar Producto</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Nombre del producto</label>
+      <input id="name" type="text" formControlName="name" placeholder="Ej: Laptop Dell XPS 13" />
+      <div class="error" *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid">
+        El nombre es obligatorio (mínimo 3 caracteres).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea id="description" formControlName="description" placeholder="Ej: Ultrabook con pantalla InfinityEdge"></textarea>
+      <div class="error" *ngIf="productForm.get('description')?.touched && productForm.get('description')?.invalid">
+        La descripción es obligatoria (mínimo 10 caracteres).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Precio</label>
+      <div class="input-wrapper">
+        <input id="price" type="number" formControlName="price" placeholder="Ej: 2500000" />
+      </div>
+      <div class="error" *ngIf="productForm.get('price')?.touched && productForm.get('price')?.invalid">
+        El precio debe ser mayor que 0.
+      </div>  
+    </div>
+
+    <button type="submit">{{ isEditMode ? 'Actualizar' : 'Guardar' }} Producto</button>
+  </form>
+</div>

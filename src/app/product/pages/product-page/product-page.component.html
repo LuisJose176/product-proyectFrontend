@@ -1,0 +1,54 @@
+<div class="product-container">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 class="title">Listado de Productos</h2>
+    <button class="button-create" (click)="onCreate()">Crear Producto</button>
+  </div>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Creado</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>$ {{ product.price }}</td>
+        <td>{{ formatDate(product.createdAt) }}</td>
+        <td class="options">
+          <button class="btn edit" (click)="onEdit(product.id)">Editar</button>
+          <button class="btn delete" (click)="onDelete(product.id)">Eliminar</button>
+        </td>
+      </tr>
+      <tr *ngIf="!products || products.length === 0">
+        <td colspan="5" class="empty">No hay productos para mostrar</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="paginator">
+    <button (click)="prevPage()" [disabled]="pageNumber === 1">Anterior</button>
+    <span>Página {{ pageNumber }} de {{ totalPages }}</span>
+    <input id="pageSize"
+           type="number"
+           [value]="pageSize"
+           (input)="onPageSizeChange($event)"
+           min="1" />
+    <button (click)="nextPage()" [disabled]="pageNumber === totalPages">Siguiente</button>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showConfirm">
+  <div class="modal">
+    <p class="warning">¿Seguro que deseas eliminar este producto?</p>
+    <div class="modal-actions">
+      <button class="btn delete" (click)="confirmDelete()">Eliminar</button>
+      <button class="btn cancel" (click)="cancelDelete()">Cancelar</button>
+    </div>
+  </div>
+</div>
